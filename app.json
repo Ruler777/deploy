@@ -1,0 +1,11 @@
+{
+  "name": "pipeLineTest",
+  "addons": [
+    "logentries"
+  ],
+  "buildpacks": [
+    {
+      "url": "heroku/maven"
+    }
+  ]
+}
