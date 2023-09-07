@@ -1,1 +1,1 @@
-web: java -jar target/pipe-0.0.1-SNAPSHOT.jar
+web: java -jar pipe-0.0.1-SNAPSHOT.jar
