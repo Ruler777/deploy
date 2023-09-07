@@ -1,1 +1,1 @@
-web: java -jar target/pipe-line-aws-deployment.jar
+web: java -Dserver.port=$PORT -jar target/pipe-line-aws-deployment.jar
