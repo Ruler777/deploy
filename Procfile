@@ -1,1 +1,1 @@
-web: java -jar target/pipe-line-aws-deployment.jar.o
+web: java -jar target/pipe-line-aws-deployment.jar
