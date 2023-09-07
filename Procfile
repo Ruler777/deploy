@@ -1,1 +1,1 @@
-web: java -Dserver.port=$PORT -jar target/pipe-0.0.1-SNAPSHOT
+web: java -jar target/pipe-0.0.1-SNAPSHOT.jar
