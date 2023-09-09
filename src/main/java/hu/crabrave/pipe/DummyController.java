@@ -15,7 +15,7 @@ public class DummyController {
 
     @GetMapping("adora")
     ResponseEntity<?> adora(){
-        return ResponseEntity.ok("Adora <3 " + mode);
+        return ResponseEntity.ok("Adora <3... " + mode);
     }
 
     @GetMapping("catra")
