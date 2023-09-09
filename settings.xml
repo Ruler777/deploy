@@ -1,0 +1,4 @@
+- name: Publish to GitHub Packages Apache Maven
+  run: mvn deploy -s $GITHUB_WORKSPACE/path/to/settings.xml
+  env:
+    GITHUB_TOKEN: ${{ github.token }}
