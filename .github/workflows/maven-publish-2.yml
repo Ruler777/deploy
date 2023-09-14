@@ -39,10 +39,10 @@ jobs:
     runs-on: aws-ec2
     steps:
       - name: Login to docker hub
-        run: docker login -u ${{secrets.DOCKER_USERNAME}} -p ${{secrets.DOCKER_PASSWORD}}
+        run: sudo docker login -u ${{secrets.DOCKER_USERNAME}} -p ${{secrets.DOCKER_PASSWORD}}
       - name: Pull image from docker hub
-        run: docker pull kiba94/spring-boot-app:latest
+        run: sudo docker pull kiba94/spring-boot-app:latest
       - name: Delete old container
-        run: docker rm -f spring-boot-container
+        run: sudo docker rm -f $(sudo docker ps -a -q)
       - name: Run docker container
-        run: docker run -d -p 8080:8080 --name spring-boot-container springboot-example
+        run: sudo docker run -d --name spring-boot-container kiba94/spring-boot-app
