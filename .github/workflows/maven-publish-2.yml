@@ -1,4 +1,4 @@
-name: Maven Package
+name: Build docker image then deploy on EC2
 
 on:
   push:
@@ -7,12 +7,10 @@ on:
 
 jobs:
   build:
-
     runs-on: ubuntu-latest
     permissions:
       contents: read
       packages: write
-
     steps:
       - uses: actions/checkout@v2
       - name: Set up JDK 11
@@ -27,13 +25,22 @@ jobs:
           server-password: ${{ secrets.GITHUB_TOKEN }}
           overwrite-settings: true
           job-status: 'success'
-
-      - name: Install Maven
-        run: sudo apt-get install -y maven  # Install Maven
-      - name: Build with Maven
+      - name: Build Project
         run: mvn clean install
+      - name: Login to docker hub
+        run: docker login -u ${{secrets.DOCKER_USERNAME}} -p ${{secrets.DOCKER_PASSWORD}}
+      - name: Build docker image
+        run: docker build -t springboot-example .
+      - name: Publish image to docker hub
+        run: docker push springboot-example:latest
 
-      - name: Publish to GitHub Packages Apache Maven
-        run: mvn deploy -s settings.xml
-        env:
-          GITHUB_TOKEN: ${{ github.token }}
+  deploy:
+    needs: build
+    runs-on: aws-ec2
+    steps:
+      - name: Pull image from docker hub
+        run: docker pull springboot-example:latest
+      - name: Delete old container
+        run: docker rm -f spring-boot-container
+      - name: Run docker container
+        run: docker run -d -p 8080:8080 --name spring-boot-container springboot-example
